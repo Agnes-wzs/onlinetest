@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bolife.online.mapper.PostMapper" >
+    <resultMap id="BaseResultMap" type="com.bolife.online.entity.Post" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="author_id" property="authorId" jdbcType="INTEGER" />
+        <result column="html_content" property="htmlContent" jdbcType="LONGVARCHAR" />
+        <result column="text_content" property="textContent" jdbcType="LONGVARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="last_reply_time" property="lastReplyTime" jdbcType="TIMESTAMP" />
+        <result column="reply_num" property="replyNum" jdbcType="INTEGER" />
+        <result column="good_num" property="goodNum" jdbcType="INTEGER" />
+        <result column="view_num" property="viewNum" jdbcType="INTEGER" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, author_id, html_content, text_content, create_time,
+        update_time, last_reply_time, reply_num, title
+    </sql>
+    <select id="getCount" resultType="int">
+        SELECT COUNT(*) FROM t_post
+    </select>
+    <select id="getPosts" resultMap="BaseResultMap">
+        SELECT * FROM t_post
+        ORDER BY last_reply_time DESC, update_time DESC, create_time DESC
+    </select>
+    <select id="getPostById" resultMap="BaseResultMap">
+        SELECT * FROM t_post WHERE id=#{postId}
+    </select>
+    <insert id="insert" parameterType="com.bolife.online.entity.Post" >
+        insert into t_post
+        (author_id, title, html_content, text_content,update_time,last_reply_time)
+        values (#{post.authorId}, #{post.title}, #{post.htmlContent}, #{post.textContent},#{post.updateTime},#{post.lastReplyTime})
+    </insert>
+    <delete id="deletePost" parameterType="Integer">
+        DELETE FROM t_post WHERE id=#{pid}
+    </delete>
+    <update id="updateReplyNumById">
+        UPDATE t_post
+        SET
+         reply_num = reply_num + 1, last_reply_time = #{lastReplyTime}
+        WHERE
+        id = #{postId}
+    </update>
+    <update id="updateGoodNumById">
+        UPDATE t_post
+        SET
+         good_num = #{goodNum}
+        WHERE
+        id = #{id}
+    </update>
+    <select id="getCountByAuthorId" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM t_post
+        WHERE author_id = #{authorId}
+    </select>
+
+    <select id="getPostsByAuthorId" resultMap="BaseResultMap" >
+        SELECT
+        *
+        FROM t_post
+        WHERE author_id = #{authorId}
+        ORDER BY last_reply_time DESC, update_time DESC, create_time DESC
+    </select>
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bolife.online.mapper.AccountMapper" >
+    <resultMap id="BaseResultMap" type="com.bolife.online.entity.Account" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="qq" property="qq" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="avatar_img_url" property="avatarImgUrl" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="level" property="level" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id,`name`,username,password,qq,phone,email,description,avatar_img_url,state,`level`,create_time
+    </sql>
+    <select id="getAccounts" resultMap="BaseResultMap">
+        SELECT * FROM t_account
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM t_account
+    </select>
+
+    <select id="getAccountByUsername" resultMap="BaseResultMap">
+        SELECT * FROM t_account WHERE username = #{username}
+    </select>
+    <select id="getAccountById" resultMap="BaseResultMap">
+        SELECT * FROM t_account WHERE id=#{id}
+    </select>
+
+    <update id="updateAccountById" parameterType="com.bolife.online.entity.Account">
+        UPDATE t_account
+        SET
+        <if test="account.name!=null">
+          `name`=#{account.name},
+        </if>
+        <if test="account.username != null">
+            username=#{account.username},
+        </if>
+        password = #{account.password}, qq = #{account.qq}, phone = #{account.phone},
+        email = #{account.email}, description = #{account.description}
+        <if test="account.avatarImgUrl!=null">
+          ,avatar_img_url = #{account.avatarImgUrl}
+        </if>
+        WHERE
+        id = #{account.id}
+    </update>
+
+    <delete id="deleteAccount" parameterType="int" >
+        delete from t_account
+        where id = #{id}
+    </delete>
+
+    <update id="updateState" >
+        update t_account set
+        state = #{state}
+        where id = #{id}
+    </update>
+
+    <insert id="insertAccount" parameterType="com.bolife.online.entity.Account" >
+        insert into t_account
+        (name, username, password, qq, phone, email, description,
+        avatar_img_url, level)
+        values (#{account.name}, #{account.username}, #{account.password},
+        #{account.qq}, #{account.phone}, #{account.email}, #{account.description},
+        #{account.avatarImgUrl}, #{account.level})
+    </insert>
+</mapper>

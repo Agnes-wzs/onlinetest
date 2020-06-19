@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>在线考试系统</title>
+    <link rel="stylesheet" th:href="@{https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="stylesheet" th:href="@{/css/problem/problemset.css}" />
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js}"></script>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery.countdown/2.2.0/jquery.countdown.min.js}"></script>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/app.js}"></script>
+    <script type="text/javascript" th:src="@{/js/problem/problemset.js}"></script>
+</head>
+<body>
+<div th:insert="~{public/public :: header}"></div>
+<div class="ui header container">
+    <div class="ui large breadcrumb">
+        <a class="section" th:href="@{/}"><i class="home icon"></i>首页</a>
+        <i class="right chevron icon divider"></i>
+        <div class="active section">题库中心</div>
+    </div>
+</div>
+
+<div class="ui problemSet container">
+    <div class="ui secondary pointing menu">
+        <a class="active item"><i class="book icon"></i>所有课程</a>
+    </div>
+    <!-- 第一排 -->
+    <div class="ui four column stackable grid">
+        <div class="column" th:each="item,itemStats : ${data['subjects']}">
+            <div class="ui fluid card">
+                <a href="javascript:void(0)" class="image">
+                    <img th:src="@{'/upload/images/'+${item.imgUrl}}" style="max-height: 240px;" />
+                </a>
+                <div class="content">
+                    <div class="header">
+                        <!-- TODO::跳转处理 -->
+                        <a th:if="${current_account != null}" th:href="@{'/problemset/'+${item.id}+'/problems'}" th:text="${item.name}">计算机组成原理</a>
+                        <a th:if="${current_account == null}" th:onclick="'app.showLogin()'" th:text="${item.name}">计算机组成原理</a>
+                    </div>
+                    <p class="description"></p>
+                </div>
+                <div class="extra content">
+                    <i class="file text outline icon"></i>
+                    <span th:text="${item.questionNum}"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 分页 -->
+<div class="ui subPage container">
+    <div class="ui pagination menu" id="subPageMenu">
+
+    </div>
+</div>
+<!-- 不可抗力元素 -->
+<div class="second-footer">
+</div>
+<nav th:insert="~{public/public :: footer}"></nav>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var pageNum = /*[[${data['pageNum']}]]*/;
+    var pageSize = /*[[${data['pageSize']}]]*/;
+    var totalPageNum = /*[[${data['totalPageNum']}]]*/;
+    var totalPageSize = /*[[${data['totalPageSize']}]]*/;
+    var subjects = /*[[${data['subjects']}]]*/;
+    var contextPath = /*[[${#httpServletRequest.getContextPath()}]]*/;
+
+    $(function(){
+        app.init(contextPath);
+        //console.log(contextPath);
+        problemSetPage.init(pageNum, pageSize, totalPageNum, totalPageSize, subjects);
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
