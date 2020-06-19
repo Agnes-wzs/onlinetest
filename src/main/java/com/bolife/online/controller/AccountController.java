@@ -69,10 +69,6 @@ public class AccountController extends BaseController {
             Account account = accountService.getAccountByUsername(username);
             if (account != null) {
                 String pwd = MD5.md5(FinalDefine.MD5_SALT + password);
-                /*System.out.println(password);
-                System.out.println(FinalDefine.MD5_SALT);
-                System.out.println(pwd);
-                System.out.println(account.getPassword());*/
                 if (password.equals(account.getPassword()) || pwd.equals(account.getPassword())) {
                     request.getSession().setAttribute(FinalDefine.CURRENT_ACCOUNT, account);
                     ajaxResult.setData(account);

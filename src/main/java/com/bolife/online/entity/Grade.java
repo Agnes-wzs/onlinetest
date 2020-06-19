@@ -2,11 +2,7 @@ package com.bolife.online.entity;
 
 import java.util.Date;
 import java.util.List;
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/6 16:20
- * @Description: 成绩
- */
+
 public class Grade {
 
     private int id;
@@ -130,20 +126,9 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade{" +
-                "id=" + id +
-                ", studentId=" + studentId +
-                ", contestId=" + contestId +
-                ", result=" + result +
-                ", autoResult=" + autoResult +
-                ", manulResult=" + manulResult +
-                ", answerJson='" + answerJson + '\'' +
-                ", createTime=" + createTime +
-                ", finishTime=" + finishTime +
-                ", state=" + state +
-                ", student=" + student +
-                ", contest=" + contest +
-                ", questions=" + questions +
-                '}';
+        return "Grade{" + "id=" + id + ", studentId=" + studentId + ", contestId=" + contestId + ", result=" + result
+            + ", autoResult=" + autoResult + ", manulResult=" + manulResult + ", answerJson='" + answerJson + '\''
+            + ", createTime=" + createTime + ", finishTime=" + finishTime + ", state=" + state + ", student=" + student
+            + ", contest=" + contest + ", questions=" + questions + '}';
     }
 }

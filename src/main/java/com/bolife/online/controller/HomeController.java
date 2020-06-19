@@ -1,27 +1,35 @@
 package com.bolife.online.controller;
 
-import com.bolife.online.dto.AjaxResult;
-import com.bolife.online.entity.*;
-import com.bolife.online.service.*;
-import com.bolife.online.util.FinalDefine;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/6 14:51
- * @Description:
- */
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.bolife.online.dto.AjaxResult;
+import com.bolife.online.entity.Account;
+import com.bolife.online.entity.Contest;
+import com.bolife.online.entity.Grade;
+import com.bolife.online.entity.Question;
+import com.bolife.online.entity.Subject;
+import com.bolife.online.service.AccountService;
+import com.bolife.online.service.ContestService;
+import com.bolife.online.service.GraderService;
+import com.bolife.online.service.QuestionService;
+import com.bolife.online.service.SubjectService;
+import com.bolife.online.util.FinalDefine;
+
 @Controller
 public class HomeController extends BaseController {
     @Autowired
@@ -33,9 +41,6 @@ public class HomeController extends BaseController {
     private AccountService accountService;
 
     @Autowired
-    private PostService postService;
-
-    @Autowired
     private GraderService graderService;
 
     @Autowired
@@ -43,14 +48,13 @@ public class HomeController extends BaseController {
 
     @RequestMapping("/contest/index")
     public String getContestIndex(HttpServletRequest request,
-                                  @RequestParam(value = "page", defaultValue = "1") int page,
-                                  Model model) {
+        @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
         logger.info("在session中获取用户信息");
-        Account user = (Account) request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
-        model.addAttribute(FinalDefine.CURRENT_ACCOUNT,user);
+        Account user = (Account)request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
+        model.addAttribute(FinalDefine.CURRENT_ACCOUNT, user);
         logger.info("获取试题信息");
         Map<String, Object> contests = contestService.getContests(page, FinalDefine.contestPageSize);
-        List<Contest> contestList = (List<Contest>) contests.get("contests");
+        List<Contest> contestList = (List<Contest>)contests.get("contests");
         logger.info("获取用户成绩");
         for (Contest contest : contestList) {
             Date startTime = contest.getStartTime();
@@ -58,19 +62,19 @@ public class HomeController extends BaseController {
             long endDate = contest.getEndTime().getTime();
             long nowDate = new Date().getTime();
 
-            if(time > nowDate ){
-                contestService.updateContestStateById(contest.getId(),0);
+            if (time > nowDate) {
+                contestService.updateContestStateById(contest.getId(), 0);
                 contest.setState(0);
             }
-            if(time <= nowDate && nowDate < endDate){
-                contestService.updateContestStateById(contest.getId(),1);
+            if (time <= nowDate && nowDate < endDate) {
+                contestService.updateContestStateById(contest.getId(), 1);
                 contest.setState(1);
             }
-            if(endDate <= nowDate && contest.getState() == 1){
-                contestService.updateContestStateById(contest.getId(),2);
+            if (endDate <= nowDate && contest.getState() == 1) {
+                contestService.updateContestStateById(contest.getId(), 2);
                 contest.setState(2);
             }
-            if(user != null) {
+            if (user != null) {
                 Grade gradeByConIdAndStuId = graderService.getGradeByConIdAndStuId(contest.getId(), user.getId());
                 if (gradeByConIdAndStuId != null) {
                     System.out.println(gradeByConIdAndStuId);
@@ -80,53 +84,32 @@ public class HomeController extends BaseController {
                 }
             }
         }
-        contests.put("contests",contestList);
-        model.addAttribute(FinalDefine.DATA,contests);
-        return  "contest/index";
+        contests.put("contests", contestList);
+        model.addAttribute(FinalDefine.DATA, contests);
+        return "contest/index";
     }
 
     @RequestMapping("/problemset/list")
-    public String getProblemList(HttpServletRequest request,
-                                 @RequestParam(value = "page", defaultValue = "1") int page,
-                                 Model model){
+    public String getProblemList(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") int page,
+        Model model) {
         logger.info("在session中获取用户信息");
-        Account user = (Account) request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
-        model.addAttribute(FinalDefine.CURRENT_ACCOUNT,user);
+        Account user = (Account)request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
+        model.addAttribute(FinalDefine.CURRENT_ACCOUNT, user);
         logger.info("获取题目列表");
         Map<String, Object> subjects = subjectService.getSubjects(page, FinalDefine.contestPageSize);
-        List<Subject> subjectList = (List<Subject>) subjects.get("subjects");
+        List<Subject> subjectList = (List<Subject>)subjects.get("subjects");
         for (Subject subject : subjectList) {
             Integer countQuestionBySubject = questionService.getCountQuestionBySubject(subject.getId());
             subject.setQuestionNum(countQuestionBySubject);
         }
-        subjects.put("subjects",subjectList);
-        model.addAttribute(FinalDefine.DATA,subjects);
+        subjects.put("subjects", subjectList);
+        model.addAttribute(FinalDefine.DATA, subjects);
         return "/problem/problemset";
     }
 
-    @RequestMapping("/discuss")
-    public String goDisscuss(HttpServletRequest request,
-                             @RequestParam(value = "page", defaultValue = "1") int page,
-                             Model model){
-        logger.info("在session中获取用户信息");
-        Account user = (Account) request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
-        model.addAttribute(FinalDefine.CURRENT_ACCOUNT,user);
-        Map<String, Object> posts = postService.getPosts(page, FinalDefine.contestPageSize);
-        List<Post> postList = (List<Post>) posts.get("posts");
-        List<Account> allAccount = accountService.getAllAccount();
-        Map<Integer, Account> id2author = allAccount.stream().
-                collect(Collectors.toMap(Account::getId, account -> account));
-        for (Post post : postList) {
-            post.setAuthor(id2author.get(post.getAuthorId()));
-        }
-        model.addAttribute(FinalDefine.DATA, posts);
-        return "/discuss/discuss";
-    }
-
     @RequestMapping("/")
-    public String goHome(HttpServletRequest request,
-                         Model model){
-        Account currentAccount = (Account) request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
+    public String goHome(HttpServletRequest request, Model model) {
+        Account currentAccount = (Account)request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
         model.addAttribute(FinalDefine.CURRENT_ACCOUNT, currentAccount);
         return "home";
     }
@@ -138,31 +121,28 @@ public class HomeController extends BaseController {
         return new AjaxResult().setData(localDateTime);
     }
 
-    @RequestMapping(value="/problemset/{problemsetId}/problems", method= RequestMethod.GET)
-    public String problemList(HttpServletRequest request,
-                              @PathVariable("problemsetId") Integer problemsetId,
-                              @RequestParam(value = "page", defaultValue = "1") int page,
-                              @RequestParam(value = "content", defaultValue = "") String content,
-                              @RequestParam(value = "difficulty", defaultValue = "0") int difficulty,
-                              Model model) {
-        Account currentAccount = (Account) request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
-        if(currentAccount == null){
+    @RequestMapping(value = "/problemset/{problemsetId}/problems", method = RequestMethod.GET)
+    public String problemList(HttpServletRequest request, @PathVariable("problemsetId") Integer problemsetId,
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "content", defaultValue = "") String content,
+        @RequestParam(value = "difficulty", defaultValue = "0") int difficulty, Model model) {
+        Account currentAccount = (Account)request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
+        if (currentAccount == null) {
             return "redirect: /404";
         }
         model.addAttribute(FinalDefine.CURRENT_ACCOUNT, currentAccount);
-        Map<String,Object> data = questionService.getQuestionByPCD(page,FinalDefine.questionPageSize,problemsetId,content,difficulty);
+        Map<String, Object> data =
+            questionService.getQuestionByPCD(page, FinalDefine.questionPageSize, problemsetId, content, difficulty);
         Subject subject = subjectService.getSubjectById(problemsetId);
         data.put("subject", subject);
         model.addAttribute(FinalDefine.DATA, data);
         return "/problem/problemlist";
     }
 
-    @RequestMapping(value="/problemset/{problemsetId}/problem/{problemId}", method= RequestMethod.GET)
-    public String problemDetail(HttpServletRequest request,
-                                @PathVariable("problemsetId") Integer problemsetId,
-                                @PathVariable("problemId") Integer problemId,
-                                Model model) {
-        Account currentAccount = (Account) request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
+    @RequestMapping(value = "/problemset/{problemsetId}/problem/{problemId}", method = RequestMethod.GET)
+    public String problemDetail(HttpServletRequest request, @PathVariable("problemsetId") Integer problemsetId,
+        @PathVariable("problemId") Integer problemId, Model model) {
+        Account currentAccount = (Account)request.getSession().getAttribute(FinalDefine.CURRENT_ACCOUNT);
         model.addAttribute(FinalDefine.CURRENT_ACCOUNT, currentAccount);
         Map<String, Object> data = new HashMap<>();
         Question question = questionService.getQuestionById(problemId);

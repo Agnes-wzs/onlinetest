@@ -22,20 +22,6 @@
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
-    <!--<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-        <!--<property name="maxIdle" value="5"/>-->
-        <!--<property name="testOnBorrow" value="true"/>-->
-    <!--</bean>-->
-    <!--<bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">-->
-        <!--<constructor-arg ref="jedisPoolConfig"/>-->
-        <!--<constructor-arg value="127.0.0.1"/>-->
-        <!--<constructor-arg value="6379"/>-->
-    <!--</bean>-->
-    <!--<bean id="redisAPI" class="com.bolife.online.util.RedisAPI">-->
-        <!--<property name="jedisPool" ref="jedisPool"/>-->
-    <!--</bean>-->
-
     <bean id="temp" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/WEB-INF/view/"/>
         <property name="suffix" value=".html"/>
@@ -60,7 +46,7 @@
     <mvc:resources mapping="/css/**" location="/assert/css/"/>
     <mvc:resources mapping="/img/**" location="/assert/img/"/>
     <mvc:resources mapping="/js/**" location="/assert/js/"/>
-    <mvc:resources mapping="/upload/**" location="file:D:/226/git/onlineTest/upload/" cache-period="3155926"/>
+    <mvc:resources mapping="/images/**" location="/upload/images/" cache-period="3155926"/>
 
     <mvc:interceptors>
         <mvc:interceptor>

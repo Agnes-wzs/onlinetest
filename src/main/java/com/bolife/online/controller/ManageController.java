@@ -23,10 +23,8 @@ import com.bolife.online.entity.Question;
 import com.bolife.online.entity.Question_Contest;
 import com.bolife.online.entity.Subject;
 import com.bolife.online.service.AccountService;
-import com.bolife.online.service.CommenService;
 import com.bolife.online.service.ContestService;
 import com.bolife.online.service.GraderService;
-import com.bolife.online.service.PostService;
 import com.bolife.online.service.QuestionService;
 import com.bolife.online.service.Question_ContentService;
 import com.bolife.online.service.SubjectService;
@@ -53,13 +51,7 @@ public class ManageController {
     private AccountService accountService;
 
     @Autowired
-    private CommenService commenService;
-
-    @Autowired
     private GraderService graderService;
-
-    @Autowired
-    private PostService postService;
 
     @Autowired
     private Question_ContentService question_contentService;
