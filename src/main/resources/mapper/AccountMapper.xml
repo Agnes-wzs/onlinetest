@@ -27,10 +27,11 @@
         COUNT(*)
         FROM t_account
     </select>
-
+	<!-- 登录 -->
     <select id="getAccountByUsername" resultMap="BaseResultMap">
         SELECT * FROM t_account WHERE username = #{username}
     </select>
+    
     <select id="getAccountById" resultMap="BaseResultMap">
         SELECT * FROM t_account WHERE id=#{id}
     </select>

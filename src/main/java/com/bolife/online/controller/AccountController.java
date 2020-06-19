@@ -32,25 +32,16 @@ import com.bolife.online.exception.QexzWebError;
 import com.bolife.online.service.AccountService;
 import com.bolife.online.service.ContestService;
 import com.bolife.online.service.GraderService;
-import com.bolife.online.service.PostService;
 import com.bolife.online.service.SubjectService;
 import com.bolife.online.util.FinalDefine;
 import com.bolife.online.util.MD5;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/7 10:24
- * @Description:
- */
 @Controller
 @RequestMapping("/account")
 public class AccountController extends BaseController {
 
     @Autowired
     private AccountService accountService;
-
-    @Autowired
-    private PostService postService;
 
     @Autowired
     private GraderService graderService;
@@ -78,6 +69,10 @@ public class AccountController extends BaseController {
             Account account = accountService.getAccountByUsername(username);
             if (account != null) {
                 String pwd = MD5.md5(FinalDefine.MD5_SALT + password);
+                /*System.out.println(password);
+                System.out.println(FinalDefine.MD5_SALT);
+                System.out.println(pwd);
+                System.out.println(account.getPassword());*/
                 if (password.equals(account.getPassword()) || pwd.equals(account.getPassword())) {
                     request.getSession().setAttribute(FinalDefine.CURRENT_ACCOUNT, account);
                     ajaxResult.setData(account);

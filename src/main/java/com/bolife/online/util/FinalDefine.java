@@ -6,12 +6,10 @@ public class FinalDefine {
     public final static String CURRENT_ACCOUNT = "current_account";
 
     //本地服务器-文件,图片所在位置,图片上传位置
-    public static final String UPLOAD_FILE_PATH = "file:D:/226/git/onlineTest/upload/";
-    public static final String UPLOAD_FILE_IMAGE_PATH = "D:/226/git/onlineTest/upload/images/";
-
-    //云服务器-文件,图片所在位置,图片上传位置
-//    public static final String UPLOAD_FILE_PATH = "file:/usr/java/data/springboot-penguin/upload/";
-//    public static final String UPLOAD_FILE_IMAGE_PATH = "/usr/java/data/springboot-penguin/upload/images/";
+    public static final String UPLOAD_FILE_PATH =
+        "file:D:/WZS/2019-2020第二学期/期末课设/JAVA EE/wzs200307-onlineTest-master/onlineTest/upload";
+    public static final String UPLOAD_FILE_IMAGE_PATH =
+        "D:/WZS/2019-2020第二学期/期末课设/JAVA EE/wzs200307-onlineTest-master/onlineTest/upload/images";
 
     //默认头像url
     public static final String DEFAULT_AVATAR_IMG_URL = "headimg_placeholder.png";

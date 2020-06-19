@@ -2,7 +2,7 @@ package com.bolife.online.exception;
 
 
 public enum QexzWebError {
-
+    
     COMMON("服务器端出错", 3000),
     WRONG_USERNAME_OR_PASSWORD("账号或密码错误", 3001),
     WRONG_USERNAME("该账号不存在", 3002),

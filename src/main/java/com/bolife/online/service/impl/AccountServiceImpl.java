@@ -1,24 +1,19 @@
 package com.bolife.online.service.impl;
 
-import com.bolife.online.entity.Account;
-import com.bolife.online.mapper.AccountMapper;
-import com.bolife.online.service.AccountService;
-import com.bolife.online.util.FinalDefine;
-import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/6 18:24
- * @Description:
- */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bolife.online.entity.Account;
+import com.bolife.online.mapper.AccountMapper;
+import com.bolife.online.service.AccountService;
+import com.bolife.online.util.FinalDefine;
+import com.github.pagehelper.PageHelper;
+
 @Service
 @SuppressWarnings("all")
 public class AccountServiceImpl implements AccountService {

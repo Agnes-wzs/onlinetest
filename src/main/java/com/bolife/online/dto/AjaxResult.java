@@ -1,16 +1,15 @@
 package com.bolife.online.dto;
 
-import com.bolife.online.exception.QexzWebError;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.bolife.online.exception.QexzWebError;
 
 /**
  * 封装json对象，所有返回结果都使用它
  */
 public class AjaxResult extends HashMap<String, Object> {
 
-    //TODO::深度依赖了，后面需要统一throw
     @Deprecated
     public static final String COMMON_ERROR = "接口调用出错";
 
