@@ -1,11 +1,7 @@
 package com.bolife.online.entity;
 
 import java.util.Date;
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/6 16:21
- * @Description: 题目
- */
+
 public class Question {
 
     private int id;
@@ -174,52 +170,57 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", questionType=" + questionType +
-                ", optionA='" + optionA + '\'' +
-                ", optionB='" + optionB + '\'' +
-                ", optionC='" + optionC + '\'' +
-                ", optionD='" + optionD + '\'' +
-                ", answer='" + answer + '\'' +
-                ", parse='" + parse + '\'' +
-                ", subjectId=" + subjectId +
-                ", contestId=" + contestId +
-                ", score=" + score +
-                ", difficulty=" + difficulty +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", state=" + state +
-                ", subjectName='" + subjectName + '\'' +
-                '}';
+        return "Question{" + "id=" + id + ", title='" + title + '\'' + ", content='" + content + '\''
+            + ", questionType=" + questionType + ", optionA='" + optionA + '\'' + ", optionB='" + optionB + '\''
+            + ", optionC='" + optionC + '\'' + ", optionD='" + optionD + '\'' + ", answer='" + answer + '\''
+            + ", parse='" + parse + '\'' + ", subjectId=" + subjectId + ", contestId=" + contestId + ", score=" + score
+            + ", difficulty=" + difficulty + ", createTime=" + createTime + ", updateTime=" + updateTime + ", state="
+            + state + ", subjectName='" + subjectName + '\'' + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
-        Question question = (Question) o;
+        Question question = (Question)o;
 
-        if (id != question.id) return false;
-        if (questionType != question.questionType) return false;
-        if (subjectId != question.subjectId) return false;
-        if (contestId != question.contestId) return false;
-        if (score != question.score) return false;
-        if (difficulty != question.difficulty) return false;
-        if (state != question.state) return false;
-        if (title != null ? !title.equals(question.title) : question.title != null) return false;
-        if (content != null ? !content.equals(question.content) : question.content != null) return false;
-        if (optionA != null ? !optionA.equals(question.optionA) : question.optionA != null) return false;
-        if (optionB != null ? !optionB.equals(question.optionB) : question.optionB != null) return false;
-        if (optionC != null ? !optionC.equals(question.optionC) : question.optionC != null) return false;
-        if (optionD != null ? !optionD.equals(question.optionD) : question.optionD != null) return false;
-        if (answer != null ? !answer.equals(question.answer) : question.answer != null) return false;
-        if (parse != null ? !parse.equals(question.parse) : question.parse != null) return false;
-        if (createTime != null ? !createTime.equals(question.createTime) : question.createTime != null) return false;
-        if (updateTime != null ? !updateTime.equals(question.updateTime) : question.updateTime != null) return false;
+        if (id != question.id)
+            return false;
+        if (questionType != question.questionType)
+            return false;
+        if (subjectId != question.subjectId)
+            return false;
+        if (contestId != question.contestId)
+            return false;
+        if (score != question.score)
+            return false;
+        if (difficulty != question.difficulty)
+            return false;
+        if (state != question.state)
+            return false;
+        if (title != null ? !title.equals(question.title) : question.title != null)
+            return false;
+        if (content != null ? !content.equals(question.content) : question.content != null)
+            return false;
+        if (optionA != null ? !optionA.equals(question.optionA) : question.optionA != null)
+            return false;
+        if (optionB != null ? !optionB.equals(question.optionB) : question.optionB != null)
+            return false;
+        if (optionC != null ? !optionC.equals(question.optionC) : question.optionC != null)
+            return false;
+        if (optionD != null ? !optionD.equals(question.optionD) : question.optionD != null)
+            return false;
+        if (answer != null ? !answer.equals(question.answer) : question.answer != null)
+            return false;
+        if (parse != null ? !parse.equals(question.parse) : question.parse != null)
+            return false;
+        if (createTime != null ? !createTime.equals(question.createTime) : question.createTime != null)
+            return false;
+        if (updateTime != null ? !updateTime.equals(question.updateTime) : question.updateTime != null)
+            return false;
         return subjectName != null ? subjectName.equals(question.subjectName) : question.subjectName == null;
     }
 

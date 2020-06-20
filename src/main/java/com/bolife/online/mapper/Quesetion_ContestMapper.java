@@ -1,16 +1,12 @@
 package com.bolife.online.mapper;
 
-import com.bolife.online.entity.Question_Contest;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.bolife.online.entity.Question_Contest;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/9 18:20
- * @Description:
- */
 @Mapper
 public interface Quesetion_ContestMapper {
     void insert(@Param("contestId") Integer contestId, @Param("questionId") int questionId);

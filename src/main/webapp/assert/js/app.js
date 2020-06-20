@@ -41,33 +41,6 @@ var app = {
         submitGradeUrl: function () {
             return app.data.contextPath+"/grade/api/submitContest"
         },
-        addPostUrl: function () {
-            return app.data.contextPath+"/post/api/addPost"
-        },
-        updatePostUrl: function () {
-            return app.data.contextPath+"/post/api/updatePost"
-        },
-        deletePostUrl: function () {
-            return app.data.contextPath+"/post/api/deletePost/";
-        },
-        discussUrl: function () {
-            return app.data.contextPath+"/discuss";
-        },
-        addCommentUrl: function () {
-            return app.data.contextPath+"/comment/api/addComment";
-        },
-        addReplyUrl: function () {
-            return app.data.contextPath+"/reply/api/addReply";
-        },
-        addGoodUrl: function () {
-            return app.data.contextPath+"/discuss/api/addGood";
-        },
-        addViewUrl: function () {
-            return app.data.contextPath+"/discuss/api/addView";
-        },
-        myDiscussPostUrl: function () {
-            return app.data.contextPath+"/account/myDiscussPost";
-        },
         myExamUrl: function () {
             return app.data.contextPath+"/account/myExam";
         },

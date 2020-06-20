@@ -1,5 +1,17 @@
 package com.bolife.online.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bolife.online.entity.Contest;
 import com.bolife.online.entity.Question;
 import com.bolife.online.entity.Question_Contest;
@@ -9,19 +21,7 @@ import com.bolife.online.service.QuestionService;
 import com.bolife.online.util.ExcelUtil;
 import com.bolife.online.util.FinalDefine;
 import com.github.pagehelper.PageHelper;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.*;
-
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/7 12:49
- * @Description:
- */
 @Service
 @SuppressWarnings("all")
 public class QuestionServiceImpl implements QuestionService {
@@ -30,16 +30,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private ContestMapper contestMapper;
+
     @Override
     public List<Question> getQuestionByContestId(Integer contestId) {
         return questionMapper.getQuestionByContestId(contestId);
     }
 
     @Override
-    public Map<String, Object> getQuestionByPCD(int pageNum, int pageSize, Integer problemsetId, String content, int difficulty) {
+    public Map<String, Object> getQuestionByPCD(int pageNum, int pageSize, Integer problemsetId, String content,
+        int difficulty) {
         Map<String, Object> data = new HashMap<>();
-        int count = questionMapper.getCountQuestionByPCD(problemsetId,
-                content, difficulty);
+        int count = questionMapper.getCountQuestionByPCD(problemsetId, content, difficulty);
         if (count == 0) {
             data.put("pageNum", 0);
             data.put("pageSize", 0);
@@ -62,8 +63,7 @@ public class QuestionServiceImpl implements QuestionService {
             return data;
         }
         PageHelper.startPage(pageNum, pageSize);
-        List<Question> questions = questionMapper.getQuestionByPCD(
-                problemsetId, content, difficulty);
+        List<Question> questions = questionMapper.getQuestionByPCD(problemsetId, content, difficulty);
         data.put("pageNum", pageNum);
         data.put("pageSize", pageSize);
         data.put("totalPageNum", totalPageNum);
@@ -120,7 +120,7 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
             question.setState(0);
             Contest contest = contestMapper.getContestById(question.getContestId());
-            contest.setTotalScore(contest.getTotalScore()+question.getScore());
+            contest.setTotalScore(contest.getTotalScore() + question.getScore());
             contestMapper.updateContestById(contest);
         }
         return questionMapper.insertQuestion(question);
@@ -167,7 +167,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Integer insertManyFile(InputStream in,String filename, Integer subjectId) {
+    public Integer insertManyFile(InputStream in, String filename, Integer subjectId) {
         Integer cou = 0;
         try {
             List<List<Object>> bankListByExcel = ExcelUtil.getBankListByExcel(in, filename);
@@ -177,12 +177,12 @@ public class QuestionServiceImpl implements QuestionService {
                 List<Object> list = objects;
                 String flag = String.valueOf(list.get(0));
                 String title = String.valueOf(list.get(1));
-                if(StringUtils.isEmpty(title)){
+                if (StringUtils.isEmpty(title)) {
                     continue;
                 }
                 qu.setTitle(String.valueOf(list.get(1)));
                 qu.setContent(String.valueOf(list.get(1)));
-                if(flag.equals("xz")){
+                if (flag.equals("xz")) {
                     qu.setOptionA(String.valueOf(list.get(2)));
                     qu.setOptionB(String.valueOf(list.get(3)));
                     qu.setOptionC(String.valueOf(list.get(4)));
@@ -190,25 +190,25 @@ public class QuestionServiceImpl implements QuestionService {
                     qu.setAnswer(String.valueOf(list.get(6)));
                     qu.setQuestionType(0);
                     qu.setScore(2);
-                }else  if(flag.equals("tk")){
+                } else if (flag.equals("tk")) {
                     String answer = "";
-                    for (int i = 2 ; i < list.size();i++){
+                    for (int i = 2; i < list.size(); i++) {
                         String ans = String.valueOf(list.get(i));
-                        if(StringUtils.isNotEmpty(ans)){
+                        if (StringUtils.isNotEmpty(ans)) {
                             answer += String.valueOf(list.get(i));
-                            answer+= FinalDefine.SPLIT_CHAR;
+                            answer += FinalDefine.SPLIT_CHAR;
                         }
                     }
                     qu.setScore(4);
                     qu.setAnswer(answer);
                     qu.setQuestionType(4);
-                }else if(flag.equals("pd")){
+                } else if (flag.equals("pd")) {
                     qu.setOptionA(String.valueOf(list.get(2)));
                     qu.setOptionB(String.valueOf(list.get(3)));
                     qu.setAnswer(String.valueOf(list.get(4)));
                     qu.setQuestionType(5);
                     qu.setScore(1);
-                }else if (flag.equals("hd")){
+                } else if (flag.equals("hd")) {
                     qu.setAnswer(String.valueOf(list.get(2)));
                     qu.setQuestionType(2);
                     qu.setScore(6);
@@ -221,7 +221,7 @@ public class QuestionServiceImpl implements QuestionService {
             }
             for (Question question : questions) {
                 int count = questionMapper.insertQuestion(question);
-                cou+=count;
+                cou += count;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -30,11 +30,6 @@ import com.bolife.online.service.Question_ContentService;
 import com.bolife.online.service.SubjectService;
 import com.bolife.online.util.FinalDefine;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/8 16:11
- * @Description:
- */
 @Controller
 @RequestMapping("/manage")
 public class ManageController {

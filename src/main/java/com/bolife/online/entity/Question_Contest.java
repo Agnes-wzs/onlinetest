@@ -2,11 +2,6 @@ package com.bolife.online.entity;
 
 import java.util.List;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/9 18:06
- * @Description:
- */
 public class Question_Contest {
     private Integer id;
     private Integer contestId;
@@ -57,26 +52,27 @@ public class Question_Contest {
 
     @Override
     public String toString() {
-        return "Question_Contest{" +
-                "id=" + id +
-                ", contestId=" + contestId +
-                ", questionId=" + questionId +
-                ", contest=" + contest +
-                ", questions=" + questions +
-                '}';
+        return "Question_Contest{" + "id=" + id + ", contestId=" + contestId + ", questionId=" + questionId
+            + ", contest=" + contest + ", questions=" + questions + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
-        Question_Contest that = (Question_Contest) o;
+        Question_Contest that = (Question_Contest)o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (contestId != null ? !contestId.equals(that.contestId) : that.contestId != null) return false;
-        if (questionId != null ? !questionId.equals(that.questionId) : that.questionId != null) return false;
-        if (contest != null ? !contest.equals(that.contest) : that.contest != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null)
+            return false;
+        if (contestId != null ? !contestId.equals(that.contestId) : that.contestId != null)
+            return false;
+        if (questionId != null ? !questionId.equals(that.questionId) : that.questionId != null)
+            return false;
+        if (contest != null ? !contest.equals(that.contest) : that.contest != null)
+            return false;
         return questions != null ? questions.equals(that.questions) : that.questions == null;
     }
 

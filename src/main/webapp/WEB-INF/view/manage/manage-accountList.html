@@ -88,7 +88,6 @@
     <td th:text="${item.email}"></td>
     <td th:if="${item.level == 0}"><span class="label label-info">学生</span></td>
     <td th:if="${item.level == 1}"><span class="label label-primary">教师</span></td>
-    <td th:if="${item.level == 2}"><span class="label label-warning">管理员</span></td>
     <td th:if="${item.state == 0}"><span class="label label-success">正常</span></td>
     <td th:if="${item.state == 1}"><span class="label label-danger">禁用</span></td>
     <td>
@@ -188,7 +187,6 @@
             <select class="form-control" id="addLevel">
                 <option value="0">普通</option>
                 <option value="1">教师</option>
-                <option value="2">管理员</option>
             </select>
            </div>
     </div>
@@ -257,7 +255,6 @@
                                 <select class="form-control" id="updateLevel">
                                     <option value="0">普通</option>
                                     <option value="1">教师</option>
-                                    <option value="2">管理员</option>
                                 </select>
                                </div>
                         </div>

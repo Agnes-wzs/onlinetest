@@ -1,14 +1,9 @@
 package com.bolife.online.entity;
 
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-
 import java.io.Serializable;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/10 15:39
- * @Description:
- */
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+
 public class ExcelBean implements Serializable {
 
     private String headTextName; //列头（标题）名

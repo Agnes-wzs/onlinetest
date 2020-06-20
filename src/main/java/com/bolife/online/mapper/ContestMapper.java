@@ -1,16 +1,12 @@
 package com.bolife.online.mapper;
 
-import com.bolife.online.entity.Contest;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.bolife.online.entity.Contest;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/6 16:45
- * @Description:
- */
 @Mapper
 public interface ContestMapper {
     /***
@@ -33,8 +29,7 @@ public interface ContestMapper {
 
     Integer insertContest(@Param("contest") Contest contest);
 
-    void updateContestStateById(@Param("id") int id,
-                                @Param("contestState") int contestState);
+    void updateContestStateById(@Param("id") int id, @Param("contestState") int contestState);
 
     void updateTotalScore(@Param("contestId") Integer contestId, @Param("totalScore") Integer totalScore);
 }

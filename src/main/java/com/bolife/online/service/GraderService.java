@@ -1,15 +1,10 @@
 package com.bolife.online.service;
 
-import com.bolife.online.entity.Grade;
-
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/7 13:25
- * @Description:
- */
+import com.bolife.online.entity.Grade;
+
 public interface GraderService {
     public Integer addGrade(Grade grade);
 

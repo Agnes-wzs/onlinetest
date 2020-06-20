@@ -1,26 +1,23 @@
 package com.bolife.online.service.impl;
 
-import com.bolife.online.entity.Grade;
-import com.bolife.online.mapper.GradeMapper;
-import com.bolife.online.service.GraderService;
-import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/7 13:25
- * @Description:
- */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bolife.online.entity.Grade;
+import com.bolife.online.mapper.GradeMapper;
+import com.bolife.online.service.GraderService;
+import com.github.pagehelper.PageHelper;
+
 @Service
 public class GradeServiceImpl implements GraderService {
     @Autowired
     private GradeMapper gradeMapper;
+
     @Override
     public Integer addGrade(Grade grade) {
         return gradeMapper.insertGrade(grade);
@@ -28,7 +25,7 @@ public class GradeServiceImpl implements GraderService {
 
     @Override
     public Grade getGradeByConIdAndStuId(int contestId, int studentId) {
-        return gradeMapper.getGradeByConIdAndStuId(contestId,studentId);
+        return gradeMapper.getGradeByConIdAndStuId(contestId, studentId);
     }
 
     @Override

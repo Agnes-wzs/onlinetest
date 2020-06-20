@@ -1,25 +1,21 @@
 package com.bolife.online.service;
 
-import com.bolife.online.entity.Question;
-import com.bolife.online.entity.Question_Contest;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/7 12:48
- * @Description:
- */
+import com.bolife.online.entity.Question;
+import com.bolife.online.entity.Question_Contest;
+
 public interface QuestionService {
     public List<Question> getQuestionByContestId(Integer contestId);
 
-    Map<String,Object> getQuestionByPCD(int page, int questionPageSize, Integer problemsetId, String content, int difficulty);
+    Map<String, Object> getQuestionByPCD(int page, int questionPageSize, Integer problemsetId, String content,
+        int difficulty);
 
     Question getQuestionById(Integer problemId);
 
-    Map<String,Object> getQuestionsByContent(int page, int questionPageSize, String content);
+    Map<String, Object> getQuestionsByContent(int page, int questionPageSize, String content);
 
     int addQuestion(Question question);
 

@@ -2,13 +2,8 @@ package com.bolife.online.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/6 16:18
- * @Description: 用户
- */
-public class Account implements Serializable {
 
+public class Account implements Serializable {
 
     private static final long serialVersionUID = -5833060742923499664L;
     private int id;
@@ -131,19 +126,9 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", qq='" + qq + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", description='" + description + '\'' +
-                ", avatarImgUrl='" + avatarImgUrl + '\'' +
-                ", state=" + state +
-                ", level=" + level +
-                ", createTime=" + createTime +
-                '}';
+        return "Account{" + "id=" + id + ", name='" + name + '\'' + ", username='" + username + '\'' + ", password='"
+            + password + '\'' + ", qq='" + qq + '\'' + ", phone='" + phone + '\'' + ", email='" + email + '\''
+            + ", description='" + description + '\'' + ", avatarImgUrl='" + avatarImgUrl + '\'' + ", state=" + state
+            + ", level=" + level + ", createTime=" + createTime + '}';
     }
 }

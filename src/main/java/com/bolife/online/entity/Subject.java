@@ -1,11 +1,7 @@
 package com.bolife.online.entity;
 
 import java.util.Date;
-/**
- * @Auther: Mr.BoBo
- * @Date: 2020/6/6 16:24
- * @Description:学科
- */
+
 public class Subject {
 
     private int id;
@@ -74,14 +70,7 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", questionNum=" + questionNum +
-                ", imgUrl='" + imgUrl + '\'' +
-                ", state=" + state +
-                '}';
+        return "Subject{" + "id=" + id + ", name='" + name + '\'' + ", createTime=" + createTime + ", updateTime="
+            + updateTime + ", questionNum=" + questionNum + ", imgUrl='" + imgUrl + '\'' + ", state=" + state + '}';
     }
 }
